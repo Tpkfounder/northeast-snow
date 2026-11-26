@@ -6,4 +6,4 @@ xarray==2026.9.0
 h5netcdf==1.8.2
 h5py==3.16.0
 eccodes==2.50.0
-eccodeslib==2.50.0.33
+eccodeslib==2.50.0.34

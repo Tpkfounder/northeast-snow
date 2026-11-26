@@ -1,0 +1,25 @@
+{
+  "_notes": [
+    "Adirondack High Peaks (NY) backcountry descents. Geometry from OpenStreetMap (ODbL); run build_backcountry.py after editing.",
+    "No avalanche center forecasts the Adirondacks, so every line here is permanently 'no avalanche forecast — conditions score only'.",
+    "Listing a line is not a recommendation to ski it."
+  ],
+  "zone": {
+    "key": "adirondacks",
+    "name": "Adirondack High Peaks",
+    "state": "NY",
+    "avalanche_center_id": null,
+    "avalanche_forecast_url": null,
+    "no_forecast_note": "No avalanche center forecasts the Adirondacks. The slides are avalanche paths (people have died on Wright Peak); NYSDEC posts general backcountry advisories only.",
+    "area_points": { "Wright Peak": [44.1560, -73.9750], "Lower Wolfjaw": [44.1610, -73.8400] },
+    "wind_point": [44.1527, -73.9816]
+  },
+  "area_hazards": {
+    "Wright Peak": "Wright Peak's open slides above the ski trail are avalanche paths. Above-treeline summit is wind-scoured and icy. Long approach from the Adirondak Loj.",
+    "Lower Wolfjaw": "Bennies Brook Slide is an open slab slide: avalanche path, often icy, with exposed rock. Long approach and remote."
+  },
+  "lines": [
+    { "key": "wright-peak-ski-trail", "name": "Wright Peak Ski Trail", "area": "Wright Peak", "osm_ways": [543319120] },
+    { "key": "bennies-brook-slide", "name": "Bennies Brook Slide", "area": "Lower Wolfjaw", "osm_ways": [972701244] }
+  ]
+}

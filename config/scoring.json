@@ -1,0 +1,47 @@
+{
+  "_notes": [
+    "score = conditions (0-100) x wind factor x drive factor. Each resort's score is its better weekend day.",
+    "conditions = fresh points + surface points (weights below add to 100).",
+    "Multiplying means a close resort can't score well on a bad snow day, and powder far away still wins over rain nearby.",
+    "Tune freely; run `python score.py` to re-rank without re-fetching."
+  ],
+  "weights": { "fresh": 60, "surface": 40 },
+
+  "fresh": {
+    "_": "Fresh snow = forecast snow before opening + half of snow during lift hours + observed recent snow, decayed by age.",
+    "full_credit_in": 10,
+    "during_weight": 0.5,
+    "observed_half_life_days": 3
+  },
+  "surface": {
+    "rain_full_penalty_in": 0.5,
+    "rain_max_penalty_frac": 0.8,
+    "rain_buried_by_snow_in": 3,
+    "refreeze_thaw_above_f": 36,
+    "refreeze_overnight_below_f": 28,
+    "refreeze_reset_snow_in": 2,
+    "refreeze_penalty_frac": 0.4,
+    "_soft": "Warm penalty ramps linearly from soft_start_f (none) to soft_full_f (soft_penalty_frac).",
+    "soft_start_f": 40,
+    "soft_full_f": 55,
+    "soft_penalty_frac": 0.6,
+    "frigid_below_f": 5,
+    "frigid_penalty_frac": 0.2,
+    "powder_min_in": 6,
+    "powder_max_temp_f": 30
+  },
+  "wind": {
+    "_": "Lift-hour summit gusts. Factor 1.0 at or below calm_gust, min_factor at or above hold_gust.",
+    "calm_gust_mph": 25,
+    "hold_gust_mph": 55,
+    "min_factor": 0.4,
+    "moderate_risk_mph": 35,
+    "high_risk_mph": 45
+  },
+  "drive": {
+    "_": "Free-flow drive hours from home. Factor 1.0 at or under easy_h, min_factor at or over max_h.",
+    "easy_h": 2.5,
+    "max_h": 6.5,
+    "min_factor": 0.5
+  }
+}

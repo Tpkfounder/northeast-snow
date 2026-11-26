@@ -1,0 +1,42 @@
+{
+  "_notes": [
+    "Hand-curated backcountry lines for the Presidential Range (MWAC forecast zone).",
+    "Geometry comes from OpenStreetMap ways (ODbL, (c) OpenStreetMap contributors); build_backcountry.py fetches it",
+    "and derives elevation, slope angle and aspect from USGS 3DEP. Re-run it after editing this list.",
+    "Deliberately excluded: The Icefall (ice-fall hazard zone, not a ski line) and the Chute N/S variations (duplicates).",
+    "These are expert, avalanche-prone lines. Listing one here is not a recommendation to ski it."
+  ],
+  "zone": {
+    "key": "presidentials",
+    "name": "Presidential Range",
+    "state": "NH",
+    "avalanche_center_id": "MWAC",
+    "avalanche_forecast_url": "https://www.mountwashingtonavalanchecenter.org/forecasts/#/presidential-range",
+    "_points": "Snow/temperature are sampled at each area's point; ridge-top wind (what loads the ravines) at wind_point.",
+    "area_points": { "Tuckerman Ravine": [44.2600, -71.2950], "Gulf of Slides": [44.2480, -71.2880], "Pinkham ski trails": [44.2580, -71.2700] },
+    "wind_point": [44.2706, -71.3033]
+  },
+  "area_hazards": {
+    "Tuckerman Ravine": "Avalanche terrain throughout. Long sliding falls on firm snow. In spring: falling ice, crevasses and undermined snow, especially below the Headwall (Lip, Sluice, Center).",
+    "Gulf of Slides": "Avalanche terrain. Less traffic than Tuckerman, so a rescue can take longer.",
+    "Pinkham ski trails": "Narrow, often icy trails with rocks and water bars; crowded with descending skiers on spring weekends. The trails start below the ravines but the routes into them cross avalanche runout zones."
+  },
+  "lines": [
+    { "key": "hillmans",      "name": "Hillman's Highway",  "area": "Tuckerman Ravine", "osm_way": 44896442 },
+    { "key": "left-gully",    "name": "Left Gully",         "area": "Tuckerman Ravine", "osm_way": 776610282 },
+    { "key": "the-chute",     "name": "The Chute",          "area": "Tuckerman Ravine", "osm_way": 776610284 },
+    { "key": "center-gully",  "name": "Center Gully",       "area": "Tuckerman Ravine", "osm_way": 776610286 },
+    { "key": "the-lip",       "name": "The Lip",            "area": "Tuckerman Ravine", "osm_way": 776610287 },
+    { "key": "the-sluice",    "name": "The Sluice",         "area": "Tuckerman Ravine", "osm_way": 776610288 },
+    { "key": "right-gully",   "name": "Right Gully",        "area": "Tuckerman Ravine", "osm_way": 776610289 },
+    { "key": "lobster-claw",  "name": "Lobster Claw",       "area": "Tuckerman Ravine", "osm_way": 776610291 },
+    { "key": "lion-head-gully", "name": "Lion Head Gully",  "area": "Tuckerman Ravine", "osm_way": 886559217 },
+    { "key": "gos-main",      "name": "Main Gully",         "area": "Gulf of Slides",   "osm_way": 732602065 },
+    { "key": "gos-2",         "name": "Gully #2",           "area": "Gulf of Slides",   "osm_way": 732602063 },
+    { "key": "gos-3",         "name": "Gully #3",           "area": "Gulf of Slides",   "osm_way": 732602062 },
+    { "key": "gos-5",         "name": "Gully #5",           "area": "Gulf of Slides",   "osm_way": 732602064 },
+    { "key": "boot-spur-fingers", "name": "Boot Spur Fingers", "area": "Gulf of Slides", "osm_way": 732602061 },
+    { "key": "sherburne", "name": "John Sherburne Ski Trail", "area": "Pinkham ski trails", "osm_way": 44896401 },
+    { "key": "gos-ski-trail", "name": "Gulf of Slides Ski Trail", "area": "Pinkham ski trails", "osm_way": 482673262 }
+  ]
+}

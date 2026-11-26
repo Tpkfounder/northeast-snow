@@ -1,0 +1,175 @@
+{
+ "type": "FeatureCollection",
+ "zone": {
+  "key": "katahdin",
+  "name": "Katahdin",
+  "state": "ME",
+  "avalanche_center_id": null,
+  "avalanche_forecast_url": null,
+  "no_forecast_note": "No avalanche center forecasts Katahdin. Baxter State Park requires winter registration and has its own rules for technical terrain.",
+  "area_points": {
+   "Chimney Pond": [
+    45.907,
+    -68.91
+   ]
+  },
+  "wind_point": [
+   45.9044,
+   -68.9213
+  ]
+ },
+ "attribution": "Line geometry (c) OpenStreetMap contributors, ODbL. Elevation: USGS 3DEP.",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "key": "chimney-couloir",
+    "name": "The Chimney Couloir",
+    "area": "Chimney Pond",
+    "zone": "katahdin",
+    "osm_way": 1341967511,
+    "osm_ways": [
+     1341967511
+    ],
+    "top_ft": 4806,
+    "bottom_ft": 3223,
+    "vert_ft": 1583,
+    "length_ft": 2428,
+    "slope_mean_deg": 33.1,
+    "slope_max_deg": 44.4,
+    "aspect_deg": 253,
+    "aspect": "W",
+    "hazards": "Remote, high alpine terrain with a very long winter approach. Steep couloirs, avalanche terrain, ice and cornices; rescue can take a day or more. Baxter State Park winter registration required."
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -68.906069,
+      45.905658
+     ],
+     [
+      -68.906309,
+      45.905705
+     ],
+     [
+      -68.906656,
+      45.90581
+     ],
+     [
+      -68.906932,
+      45.905794
+     ],
+     [
+      -68.907185,
+      45.905822
+     ],
+     [
+      -68.907312,
+      45.905821
+     ],
+     [
+      -68.907468,
+      45.905802
+     ],
+     [
+      -68.907661,
+      45.905823
+     ],
+     [
+      -68.907887,
+      45.905873
+     ],
+     [
+      -68.908063,
+      45.905932
+     ],
+     [
+      -68.908273,
+      45.905983
+     ],
+     [
+      -68.908478,
+      45.906101
+     ],
+     [
+      -68.908996,
+      45.906304
+     ],
+     [
+      -68.909153,
+      45.906384
+     ],
+     [
+      -68.90929,
+      45.9065
+     ],
+     [
+      -68.909568,
+      45.906604
+     ],
+     [
+      -68.90995,
+      45.906669
+     ],
+     [
+      -68.910342,
+      45.906736
+     ],
+     [
+      -68.910659,
+      45.906748
+     ],
+     [
+      -68.911226,
+      45.906715
+     ],
+     [
+      -68.911495,
+      45.906802
+     ],
+     [
+      -68.911667,
+      45.90694
+     ],
+     [
+      -68.911911,
+      45.906986
+     ],
+     [
+      -68.912239,
+      45.906994
+     ],
+     [
+      -68.91256,
+      45.907024
+     ],
+     [
+      -68.912813,
+      45.907117
+     ],
+     [
+      -68.913017,
+      45.907239
+     ],
+     [
+      -68.913216,
+      45.907483
+     ],
+     [
+      -68.913276,
+      45.907742
+     ],
+     [
+      -68.913354,
+      45.908235
+     ],
+     [
+      -68.9134,
+      45.908564
+     ]
+    ]
+   }
+  }
+ ]
+}

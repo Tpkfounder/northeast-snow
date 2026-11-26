@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Only this site, the pinned Leaflet build on cdnjs and OSM tiles may load. No inline scripts, no plugins, no forms. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Northeast Storm Totals</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+      integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
+        integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --ink: #16202b; --muted: #5b6876; --line: #e2e6eb;
+    --ikon: #1f4fd1; --epic: #c2410c; --indy: #be185d; --bc: #6b21a8;
+    --s0: #d5dde6; --s1: #bcdcf5; --s2: #7fbbe8; --s3: #3d8fd6; --s4: #1d5fae; --s5: #4b2a99;
+    --rain: #2f855a;
+    --g0: #d9d4cc; --g1: #b9dcb0; --g2: #5fb36b; --g3: #1f7a3a;
+    --bc-poor: #9a5b3c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e1319; --panel: #161d26; --ink: #e6ebf1; --muted: #93a1b0; --line: #26303c;
+      --ikon: #7aa2ff; --epic: #fb923c; --indy: #f472b6; --bc: #c084fc;
+      --s0: #3a4552; --s1: #2b5476; --s2: #3477b0; --s3: #4c9be0; --s4: #8cc4f5; --s5: #d0b8ff;
+      --rain: #5fd39a;
+      --g0: #3d3a36; --g1: #2f5a36; --g2: #3f9a52; --g3: #7fdc8f; --bc-poor: #d08a66;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1319; --panel: #161d26; --ink: #e6ebf1; --muted: #93a1b0; --line: #26303c;
+    --ikon: #7aa2ff; --epic: #fb923c; --indy: #f472b6; --bc: #c084fc;
+    --s0: #3a4552; --s1: #2b5476; --s2: #3477b0; --s3: #4c9be0; --s4: #8cc4f5; --s5: #d0b8ff;
+    --rain: #5fd39a;
+    --g0: #3d3a36; --g1: #2f5a36; --g2: #3f9a52; --g3: #7fdc8f; --bc-poor: #d08a66;
+  }
+  .views { display: flex; gap: 4px; }
+  .views button { font: inherit; font-size: 13px; border: 0; background: transparent; color: var(--muted); padding: 4px 8px; border-bottom: 2px solid transparent; cursor: pointer; }
+  .views button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); font-weight: 600; }
+  .rank { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 12px; width: 18px; text-align: right; }
+  li.wk { grid-template-columns: 18px 1fr auto; align-items: start; }
+  .grade { font-size: 11px; font-weight: 700; display: block; text-align: right; }
+  .why { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .factors { display: flex; gap: 8px; font-size: 11px; color: var(--muted); margin-top: 3px; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+  .factors b { color: var(--ink); font-weight: 600; }
+  .pp .days { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+  .pp .day h4 { margin: 0 0 2px; font-size: 13px; }
+  .pp .day.best h4::after { content: " ★"; color: var(--g2); }
+  .pp .day div { font-size: 12px; font-variant-numeric: tabular-nums; }
+  [hidden] { display: none !important; }
+  .avy { margin: 12px 16px 4px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); border-left: 6px solid var(--avy, var(--muted)); background: var(--bg); }
+  .avy b { font-size: 14px; }
+  .avy a { color: var(--ikon); font-weight: 600; }
+  .verdict { font-size: 12px; font-weight: 600; margin-top: 2px; }
+  .verdict.gated { color: var(--muted); } .verdict.no_forecast { color: var(--epic); }
+  .flag { font-size: 11px; color: var(--epic); }
+  .pp .flags { margin: 6px 0; padding-left: 16px; font-size: 12px; color: var(--epic); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; display: flex; flex-direction: column; }
+  header { padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--panel); display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; }
+  h1 { font-size: 17px; margin: 0; }
+  .meta { color: var(--muted); font-size: 12px; }
+  main { flex: 1; display: grid; grid-template-columns: 340px 1fr; min-height: 0; }
+  aside { background: var(--panel); border-right: 1px solid var(--line); overflow-y: auto; display: flex; flex-direction: column; }
+  #map { min-height: 0; background: var(--bg); }
+  .filters { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 12px 16px 8px; }
+  .filters + .filters { padding-top: 0; }
+  .filters .sep { width: 1px; align-self: stretch; background: var(--line); margin: 0 2px; }
+  .filters label { font-size: 13px; color: var(--muted); display: flex; gap: 6px; align-items: center; }
+  .filters select { font: inherit; font-size: 13px; padding: 3px 6px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--ink); }
+  .summary { margin: 0 16px 8px; padding: 10px 12px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line); font-size: 13px; }
+  .summary b { font-size: 14px; }
+  .summary .sub { display: block; margin-top: 2px; }
+  .season { font-size: 11px; font-weight: 600; }
+  .season.opened { color: var(--rain); } .season.scheduled { color: var(--epic); } .season.no_date { color: var(--muted); }
+  li.zone-head { display: block; cursor: pointer; padding: 0; }
+  li.zone-head:hover { background: none; }
+  li.zone-head .avy { margin: 10px 8px 4px; }
+  .filters button { font: inherit; font-size: 13px; border: 1px solid var(--line); background: transparent; color: var(--ink); padding: 4px 10px; border-radius: 999px; cursor: pointer; }
+  .filters button[aria-pressed="true"] { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+  ol { list-style: none; margin: 0; padding: 0 8px 12px; }
+  li { display: grid; grid-template-columns: 14px 1fr auto; gap: 10px; align-items: center; padding: 8px; border-radius: 8px; cursor: pointer; }
+  li:hover, li:focus-visible { background: var(--bg); outline: none; }
+  .sw { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(0,0,0,.15); }
+  .sw.tri { border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); border: 0; }
+  .nm { font-weight: 600; }
+  .sub { color: var(--muted); font-size: 12px; }
+  .pass { font-size: 11px; font-weight: 700; letter-spacing: .02em; }
+  .pass.Ikon { color: var(--ikon); } .pass.Epic { color: var(--epic); } .pass.Indy { color: var(--indy); } .pass.Backcountry { color: var(--bc); }
+  .amt { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 16px; text-align: right; }
+  .amt small { font-weight: 400; color: var(--muted); font-size: 11px; display: block; }
+  .rain { color: var(--rain); font-size: 11px; font-weight: 600; }
+  .rng { color: var(--muted); font-size: 11px; font-weight: 400; display: block; white-space: nowrap; }
+  /* Range bar: thin line = 10th–90th, thick = 25th–75th, tick = 50th. */
+  .bar { position: relative; height: 10px; margin-top: 4px; }
+  .bar .w { position: absolute; top: 4px; height: 2px; background: var(--muted); opacity: .55; border-radius: 1px; }
+  .bar .b { position: absolute; top: 2px; height: 6px; background: var(--s3); border-radius: 3px; }
+  .bar .t { position: absolute; top: 0; width: 2px; height: 10px; background: var(--ink); }
+  .bar .track { position: absolute; top: 4px; left: 0; right: 0; height: 2px; background: var(--line); }
+  .pp .bar { margin: 6px 0 2px; }
+  .legend { padding: 12px 16px; border-top: 1px solid var(--line); margin-top: auto; font-size: 12px; color: var(--muted); }
+  .scale { display: flex; gap: 2px; margin: 6px 0 4px; }
+  .scale span { flex: 1; height: 8px; }
+  .scale-l { display: flex; justify-content: space-between; font-variant-numeric: tabular-nums; }
+  .note { margin-top: 8px; }
+  .err { padding: 16px; color: var(--epic); }
+  /* Leaflet popup theming */
+  .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--panel); color: var(--ink); }
+  .leaflet-popup-content { margin: 12px 14px; min-width: 220px; }
+  .pp h3 { margin: 0 0 2px; font-size: 15px; }
+  .pp table { width: 100%; border-collapse: collapse; margin: 8px 0; font-variant-numeric: tabular-nums; }
+  .pp td { padding: 2px 0; border-bottom: 1px solid var(--line); }
+  .pp td:last-child { text-align: right; }
+  .pp .warn { font-size: 12px; border-left: 3px solid var(--bc); padding-left: 8px; margin-top: 8px; }
+  .pp a { color: var(--ikon); }
+  .label { background: none; border: 0; box-shadow: none; color: var(--ink); font-weight: 700; font-size: 11px; text-shadow: 0 0 3px var(--bg), 0 0 3px var(--bg); }
+  .label::before { display: none; }
+  /* Mute the busy OSM style so the snow markers carry the color. */
+  .basemap { filter: grayscale(.85) contrast(.9) brightness(1.05); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .basemap { filter: grayscale(1) invert(1) brightness(.85) contrast(.9); } }
+  :root[data-theme="dark"] .basemap { filter: grayscale(1) invert(1) brightness(.85) contrast(.9); }
+  @media (max-width: 760px) {
+    main { display: flex; flex-direction: column; overflow-y: auto; }
+    #map { order: 1; flex: none; height: 55vh; }
+    aside { order: 2; flex: none; overflow: visible; border-right: 0; border-top: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Northeast Storm Totals · next 72h</h1>
+  <nav class="views" role="tablist" aria-label="View">
+    <button role="tab" data-v="storm" aria-selected="true">Storm totals</button>
+    <button role="tab" data-v="weekend" aria-selected="false">Where to ski this weekend</button>
+    <button role="tab" data-v="backcountry" aria-selected="false">Backcountry lines</button>
+  </nav>
+  <span class="meta" id="meta">Loading…</span>
+</header>
+<main>
+  <aside>
+    <div class="filters" id="pass-filters" role="group" aria-label="Pass filter">
+      <button data-f="all" aria-pressed="true">All</button>
+      <button data-f="Ikon" aria-pressed="false">Ikon</button>
+      <button data-f="Epic" aria-pressed="false">Epic</button>
+      <button data-f="Indy" aria-pressed="false">Indy</button>
+      <span class="sep" id="bc-sep"></span>
+      <button data-bc aria-pressed="true" title="Show or hide backcountry zones on the map">▲ Backcountry</button>
+    </div>
+    <div class="filters" id="wk-tools" hidden>
+      <label>Max drive
+        <select id="maxdrive">
+          <option value="0">Any</option><option value="2">2 h</option><option value="3">3 h</option>
+          <option value="4">4 h</option><option value="5">5 h</option><option value="6">6 h</option>
+        </select>
+      </label>
+    </div>
+    <div class="summary" id="summary" hidden></div>
+    <div id="bc-head" hidden>
+      <div class="filters" role="group" aria-label="Backcountry zones" id="bc-zones"></div>
+      <div class="filters" role="group" aria-label="Day" id="bc-days"></div>
+    </div>
+    <ol id="list"></ol>
+    <div class="legend" id="legend-backcountry" hidden>
+      Line conditions score (0–100)
+      <div class="scale"><span style="background:var(--bc-poor)"></span><span style="background:var(--g2)"></span><span style="background:var(--g3)"></span></div>
+      <div class="scale-l"><span>Not in condition</span><span>Marginal 40</span><span>65+</span></div>
+      <div class="note">Dashed line: no avalanche forecast, so conditions score only. Grey line: avalanche danger Considerable or higher, never shown as in condition.</div>
+      <div class="note">Score = fresh snow 35 + coverage 20 + wind effect 20 + surface 25. Hazard flags are listed separately and never add points. Line geometry © OpenStreetMap contributors (ODbL). Terrain from USGS 3DEP lidar.</div>
+      <div class="note"><b>This page never says "go ski this."</b> Avalanche terrain needs training, partners, rescue gear and the day's official forecast.</div>
+    </div>
+    <div class="legend" id="legend-weekend" hidden>
+      Weekend score (best of Sat/Sun)
+      <div class="scale"><span style="background:var(--g0)"></span><span style="background:var(--g1)"></span><span style="background:var(--g2)"></span><span style="background:var(--g3)"></span></div>
+      <div class="scale-l"><span>Poor</span><span>Fair 30</span><span>Good 50</span><span>Great 70+</span></div>
+      <div class="note">Score = snow conditions (fresh snow + surface, out of 100) × wind-hold factor × drive factor. Weights are in <code>config/scoring.json</code>.</div>
+      <div class="note" id="caveats"></div>
+    </div>
+    <div class="legend" id="legend-storm">
+      72h snowfall (inches)
+      <div class="scale" id="scale"></div>
+      <div class="scale-l"><span>0</span><span>1</span><span>3</span><span>6</span><span>12</span><span>18+</span></div>
+      <div class="note" id="note">Headline is the "likely" amount (WPC 50th percentile). Range bar: thin line 10th–90th, thick 25th–75th, tick 50th. Low and high are the 10th and 90th percentiles. Mountains without range data fall back to the NWS point forecast.</div>
+    </div>
+  </aside>
+  <div id="map"></div>
+</main>
+<script src="app.js" defer></script>
+</body>
+</html>

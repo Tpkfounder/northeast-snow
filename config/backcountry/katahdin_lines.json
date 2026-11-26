@@ -1,0 +1,23 @@
+{
+  "_notes": [
+    "Katahdin (Baxter State Park, ME). Geometry from OpenStreetMap (ODbL); run build_backcountry.py after editing.",
+    "No avalanche center forecasts Katahdin, so every line here is permanently 'no avalanche forecast — conditions score only'.",
+    "Listing a line is not a recommendation to ski it."
+  ],
+  "zone": {
+    "key": "katahdin",
+    "name": "Katahdin",
+    "state": "ME",
+    "avalanche_center_id": null,
+    "avalanche_forecast_url": null,
+    "no_forecast_note": "No avalanche center forecasts Katahdin. Baxter State Park requires winter registration and has its own rules for technical terrain.",
+    "area_points": { "Chimney Pond": [45.9070, -68.9100] },
+    "wind_point": [45.9044, -68.9213]
+  },
+  "area_hazards": {
+    "Chimney Pond": "Remote, high alpine terrain with a very long winter approach. Steep couloirs, avalanche terrain, ice and cornices; rescue can take a day or more. Baxter State Park winter registration required."
+  },
+  "lines": [
+    { "key": "chimney-couloir", "name": "The Chimney Couloir", "area": "Chimney Pond", "osm_ways": [1341967511] }
+  ]
+}

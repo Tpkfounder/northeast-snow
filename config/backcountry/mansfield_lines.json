@@ -1,0 +1,24 @@
+{
+  "_notes": [
+    "Classic Mount Mansfield (VT) backcountry descents. Geometry from OpenStreetMap (ODbL); run build_backcountry.py after editing.",
+    "No avalanche center forecasts Vermont, so every line here is permanently 'no avalanche forecast — conditions score only'.",
+    "Listing a line is not a recommendation to ski it."
+  ],
+  "zone": {
+    "key": "mansfield",
+    "name": "Mount Mansfield",
+    "state": "VT",
+    "avalanche_center_id": null,
+    "avalanche_forecast_url": null,
+    "no_forecast_note": "No avalanche center forecasts Vermont. Mansfield's steeper slides and chutes are avalanche terrain; assess it yourself.",
+    "area_points": { "Mount Mansfield": [44.5200, -72.8200] },
+    "wind_point": [44.5437, -72.8143]
+  },
+  "area_hazards": {
+    "Mount Mansfield": "Tight, rocky tree skiing with ice bulges and thin cover early season. The upper ridge is above treeline and wind-scoured; whiteouts are common. Some lines cross land with seasonal closures."
+  },
+  "lines": [
+    { "key": "teardrop", "name": "Teardrop Trail", "area": "Mount Mansfield", "osm_ways": [51262713, 51262816] },
+    { "key": "the-bruce", "name": "The Bruce", "area": "Mount Mansfield", "osm_ways": [98572353, 484291682] }
+  ]
+}

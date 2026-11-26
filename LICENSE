@@ -1,0 +1,16 @@
+Copyright (c) 2026 TPK Labs. All rights reserved.
+
+This repository's source code, configuration and curated content (including the
+resort and backcountry line lists) may not be copied, modified, distributed or
+used, in whole or in part, without prior written permission from TPK Labs.
+
+Viewing the published website, and viewing this repository on GitHub as GitHub's
+Terms of Service allow, does not grant any license to reuse its contents.
+
+Third-party material keeps its own terms and is not covered by this notice:
+  - Map tiles and line geometry: (c) OpenStreetMap contributors, ODbL 1.0
+    (https://www.openstreetmap.org/copyright)
+  - Leaflet: BSD 2-Clause License, loaded from cdnjs
+  - Weather, snowfall and elevation data: U.S. government works (NWS, WPC,
+    NOHRSC, USGS 3DEP), public domain
+  - Avalanche danger ratings: avalanche.org and the issuing avalanche centers

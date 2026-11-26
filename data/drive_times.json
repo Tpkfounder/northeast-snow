@@ -1,0 +1,252 @@
+{
+  "generated_at": "2026-11-26T20:39:49.463472+00:00",
+  "source": "Valhalla (valhalla1.openstreetmap.de), auto costing, free-flow",
+  "home": {
+    "name": "Westchester, NY",
+    "lat": 41.03,
+    "lon": -73.76
+  },
+  "inputs_key": "ad95339ee70a",
+  "mountains": {
+    "stowe": {
+      "hours": 5.23,
+      "miles": 315
+    },
+    "okemo": {
+      "hours": 3.71,
+      "miles": 223
+    },
+    "mount-snow": {
+      "hours": 3.51,
+      "miles": 201
+    },
+    "sunapee": {
+      "hours": 3.99,
+      "miles": 239
+    },
+    "attitash": {
+      "hours": 5.52,
+      "miles": 327
+    },
+    "wildcat": {
+      "hours": 5.72,
+      "miles": 336
+    },
+    "crotched": {
+      "hours": 4.13,
+      "miles": 226
+    },
+    "hunter": {
+      "hours": 2.39,
+      "miles": 117
+    },
+    "killington": {
+      "hours": 4.34,
+      "miles": 248
+    },
+    "pico": {
+      "hours": 4.3,
+      "miles": 247
+    },
+    "sugarbush": {
+      "hours": 5.13,
+      "miles": 300
+    },
+    "stratton": {
+      "hours": 3.85,
+      "miles": 210
+    },
+    "sunday-river": {
+      "hours": 6.35,
+      "miles": 375
+    },
+    "sugarloaf": {
+      "hours": 7.16,
+      "miles": 399
+    },
+    "loon": {
+      "hours": 4.96,
+      "miles": 306
+    },
+    "bolton": {
+      "hours": 5.05,
+      "miles": 308
+    },
+    "burke": {
+      "hours": 5.06,
+      "miles": 310
+    },
+    "jay": {
+      "hours": 5.87,
+      "miles": 351
+    },
+    "magic": {
+      "hours": 3.78,
+      "miles": 222
+    },
+    "middlebury": {
+      "hours": 4.84,
+      "miles": 282
+    },
+    "saskadena": {
+      "hours": 4.07,
+      "miles": 241
+    },
+    "smuggs": {
+      "hours": 5.38,
+      "miles": 320
+    },
+    "black-nh": {
+      "hours": 5.54,
+      "miles": 328
+    },
+    "cannon": {
+      "hours": 5.2,
+      "miles": 304
+    },
+    "dartmouth": {
+      "hours": 4.22,
+      "miles": 255
+    },
+    "king-pine": {
+      "hours": 5.11,
+      "miles": 302
+    },
+    "mcintyre": {
+      "hours": 3.8,
+      "miles": 227
+    },
+    "pats-peak": {
+      "hours": 3.95,
+      "miles": 229
+    },
+    "ragged": {
+      "hours": 4.45,
+      "miles": 259
+    },
+    "tenney": {
+      "hours": 4.88,
+      "miles": 278
+    },
+    "veterans": {
+      "hours": 4.48,
+      "miles": 263
+    },
+    "waterville": {
+      "hours": 5.03,
+      "miles": 302
+    },
+    "whaleback": {
+      "hours": 3.99,
+      "miles": 244
+    },
+    "big-moose": {
+      "hours": 7.7,
+      "miles": 448
+    },
+    "big-rock": {
+      "hours": 9.11,
+      "miles": 561
+    },
+    "black-maine": {
+      "hours": 6.39,
+      "miles": 363
+    },
+    "lost-valley": {
+      "hours": 5.28,
+      "miles": 320
+    },
+    "saddleback": {
+      "hours": 7.6,
+      "miles": 406
+    },
+    "buffalo": {
+      "hours": 6.46,
+      "miles": 366
+    },
+    "dry-hill": {
+      "hours": 5.29,
+      "miles": 316
+    },
+    "greek-peak": {
+      "hours": 3.49,
+      "miles": 205
+    },
+    "hunt-hollow": {
+      "hours": 5.07,
+      "miles": 299
+    },
+    "maple-ridge": {
+      "hours": 2.69,
+      "miles": 158
+    },
+    "pisgah": {
+      "hours": 5.08,
+      "miles": 289
+    },
+    "peek": {
+      "hours": 6.9,
+      "miles": 423
+    },
+    "skaneateles": {
+      "hours": 4.15,
+      "miles": 247
+    },
+    "snow-ridge": {
+      "hours": 4.64,
+      "miles": 272
+    },
+    "swain": {
+      "hours": 5.1,
+      "miles": 303
+    },
+    "titus": {
+      "hours": 6.02,
+      "miles": 327
+    },
+    "west-mtn": {
+      "hours": 3.22,
+      "miles": 192
+    },
+    "berkshire-east": {
+      "hours": 2.93,
+      "miles": 171
+    },
+    "bousquet": {
+      "hours": 2.43,
+      "miles": 116
+    },
+    "catamount": {
+      "hours": 1.99,
+      "miles": 93
+    },
+    "mohawk": {
+      "hours": 1.59,
+      "miles": 71
+    },
+    "mt-washington": {
+      "hours": 5.66,
+      "miles": 335
+    },
+    "mansfield": {
+      "hours": 5.51,
+      "miles": 315
+    },
+    "wright-peak": {
+      "hours": 4.8,
+      "miles": 279
+    },
+    "katahdin": {
+      "hours": 8.6,
+      "miles": 511
+    },
+    "burnt-meadow": {
+      "hours": 5.48,
+      "miles": 316
+    },
+    "whitecap": {
+      "hours": 6.45,
+      "miles": 358
+    }
+  }
+}

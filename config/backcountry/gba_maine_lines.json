@@ -1,0 +1,33 @@
+{
+  "_notes": [
+    "Granite Backcountry Alliance glade zones in western Maine (operator tag in OSM: Granite Backcountry Alliance).",
+    "Geometry from OpenStreetMap (ODbL); run build_backcountry.py after editing. Mostly moderate tree skiing, not big avalanche terrain,",
+    "but no avalanche center forecasts these areas, so they are 'no avalanche forecast — conditions score only'. Not a recommendation to ski."
+  ],
+  "zone": {
+    "key": "gba-maine",
+    "name": "GBA Glades (Maine)",
+    "state": "ME",
+    "avalanche_center_id": null,
+    "avalanche_forecast_url": null,
+    "no_forecast_note": "No avalanche center forecasts these glades. Check Granite Backcountry Alliance's zone rules and parking/land-access notes before going.",
+    "area_points": { "Burnt Meadow": [43.9290, -70.9080], "Whitecap (Rumford)": [44.5720, -70.6550] },
+    "wind_point": [43.9300, -70.9060],
+    "area_wind_points": { "Whitecap (Rumford)": [44.5780, -70.6450] }
+  },
+  "area_hazards": {
+    "Burnt Meadow": "Hand-cut glades: stumps, rocks and tree wells, thin cover early season. Respect the landowner rules GBA posts for the zone.",
+    "Whitecap (Rumford)": "Hand-cut glades: stumps, rocks and tree wells, thin cover early season. Respect the landowner rules GBA posts for the zone."
+  },
+  "lines": [
+    { "key": "bm-saddle", "name": "Saddle", "area": "Burnt Meadow", "osm_ways": [1329937433] },
+    { "key": "bm-zodiac", "name": "Zodiac", "area": "Burnt Meadow", "osm_ways": [1329937434] },
+    { "key": "bm-buck-hunter", "name": "Buck Hunter", "area": "Burnt Meadow", "osm_ways": [1329937437] },
+    { "key": "bm-brushfire", "name": "Brushfire", "area": "Burnt Meadow", "osm_ways": [1329937438] },
+    { "key": "wc-merrymeeting", "name": "Merrymeeting", "area": "Whitecap (Rumford)", "osm_ways": [849607228] },
+    { "key": "wc-quarry-line", "name": "Quarry Line", "area": "Whitecap (Rumford)", "osm_ways": [860195744] },
+    { "key": "wc-red-pine-line", "name": "Red Pine Line", "area": "Whitecap (Rumford)", "osm_ways": [860196422] },
+    { "key": "wc-smokestack", "name": "Smokestack", "area": "Whitecap (Rumford)", "osm_ways": [860166968] },
+    { "key": "wc-waterfall", "name": "Waterfall", "area": "Whitecap (Rumford)", "osm_ways": [860166969] }
+  ]
+}

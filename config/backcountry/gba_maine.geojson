@@ -1,0 +1,1013 @@
+{
+ "type": "FeatureCollection",
+ "zone": {
+  "key": "gba-maine",
+  "name": "GBA Glades (Maine)",
+  "state": "ME",
+  "avalanche_center_id": null,
+  "avalanche_forecast_url": null,
+  "no_forecast_note": "No avalanche center forecasts these glades. Check Granite Backcountry Alliance's zone rules and parking/land-access notes before going.",
+  "area_points": {
+   "Burnt Meadow": [
+    43.929,
+    -70.908
+   ],
+   "Whitecap (Rumford)": [
+    44.572,
+    -70.655
+   ]
+  },
+  "wind_point": [
+   43.93,
+   -70.906
+  ],
+  "area_wind_points": {
+   "Whitecap (Rumford)": [
+    44.578,
+    -70.645
+   ]
+  }
+ },
+ "attribution": "Line geometry (c) OpenStreetMap contributors, ODbL. Elevation: USGS 3DEP.",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "key": "bm-saddle",
+    "name": "Saddle",
+    "area": "Burnt Meadow",
+    "zone": "gba-maine",
+    "osm_way": 1329937433,
+    "osm_ways": [
+     1329937433
+    ],
+    "top_ft": 1112,
+    "bottom_ft": 559,
+    "vert_ft": 553,
+    "length_ft": 3397,
+    "slope_mean_deg": 9.2,
+    "slope_max_deg": 23.0,
+    "aspect_deg": 16,
+    "aspect": "N",
+    "hazards": "Hand-cut glades: stumps, rocks and tree wells, thin cover early season. Respect the landowner rules GBA posts for the zone."
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -70.909915,
+      43.92577
+     ],
+     [
+      -70.910342,
+      43.925948
+     ],
+     [
+      -70.910586,
+      43.926184
+     ],
+     [
+      -70.910749,
+      43.926422
+     ],
+     [
+      -70.911156,
+      43.926961
+     ],
+     [
+      -70.911262,
+      43.927312
+     ],
+     [
+      -70.91118,
+      43.927945
+     ],
+     [
+      -70.910818,
+      43.929127
+     ],
+     [
+      -70.910559,
+      43.929802
+     ],
+     [
+      -70.910666,
+      43.930129
+     ],
+     [
+      -70.910533,
+      43.930399
+     ],
+     [
+      -70.910279,
+      43.930562
+     ],
+     [
+      -70.910067,
+      43.931206
+     ],
+     [
+      -70.909696,
+      43.931704
+     ],
+     [
+      -70.909162,
+      43.932013
+     ],
+     [
+      -70.90853,
+      43.932254
+     ],
+     [
+      -70.907605,
+      43.93226
+     ],
+     [
+      -70.906165,
+      43.931901
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "key": "bm-zodiac",
+    "name": "Zodiac",
+    "area": "Burnt Meadow",
+    "zone": "gba-maine",
+    "osm_way": 1329937434,
+    "osm_ways": [
+     1329937434
+    ],
+    "top_ft": 1101,
+    "bottom_ft": 577,
+    "vert_ft": 524,
+    "length_ft": 2535,
+    "slope_mean_deg": 11.7,
+    "slope_max_deg": 27.7,
+    "aspect_deg": 6,
+    "aspect": "N",
+    "hazards": "Hand-cut glades: stumps, rocks and tree wells, thin cover early season. Respect the landowner rules GBA posts for the zone."
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -70.910342,
+      43.925948
+     ],
+     [
+      -70.910127,
+      43.9269
+     ],
+     [
+      -70.909911,
+      43.927303
+     ],
+     [
+      -70.909875,
+      43.928208
+     ],
+     [
+      -70.910017,
+      43.92861
+     ],
+     [
+      -70.910066,
+      43.928853
+     ],
+     [
+      -70.909696,
+      43.929732
+     ],
+     [
+      -70.909622,
+      43.930335
+     ],
+     [
+      -70.909154,
+      43.931152
+     ],
+     [
+      -70.907605,
+      43.93226
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "key": "bm-buck-hunter",
+    "name": "Buck Hunter",
+    "area": "Burnt Meadow",
+    "zone": "gba-maine",
+    "osm_way": 1329937437,
+    "osm_ways": [
+     1329937437
+    ],
+    "top_ft": 1112,
+    "bottom_ft": 439,
+    "vert_ft": 673,
+    "length_ft": 3516,
+    "slope_mean_deg": 10.8,
+    "slope_max_deg": 27.0,
+    "aspect_deg": 28,
+    "aspect": "NE",
+    "hazards": "Hand-cut glades: stumps, rocks and tree wells, thin cover early season. Respect the landowner rules GBA posts for the zone."
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -70.909915,
+      43.92577
+     ],
+     [
+      -70.908887,
+      43.925782
+     ],
+     [
+      -70.907415,
+      43.926888
+     ],
+     [
+      -70.906705,
+      43.928684
+     ],
+     [
+      -70.90666,
+      43.928797
+     ],
+     [
+      -70.906423,
+      43.929279
+     ],
+     [
+      -70.905091,
+      43.931222
+     ],
+     [
+      -70.90508,
+      43.931578
+     ],
+     [
+      -70.905306,
+      43.932088
+     ],
+     [
+      -70.905252,
+      43.93249
+     ],
+     [
+      -70.904737,
+      43.933285
+     ],
+     [
+      -70.904337,
+      43.933715
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "key": "bm-brushfire",
+    "name": "Brushfire",
+    "area": "Burnt Meadow",
+    "zone": "gba-maine",
+    "osm_way": 1329937438,
+    "osm_ways": [
+     1329937438
+    ],
+    "top_ft": 1146,
+    "bottom_ft": 797,
+    "vert_ft": 350,
+    "length_ft": 1606,
+    "slope_mean_deg": 12.3,
+    "slope_max_deg": 25.6,
+    "aspect_deg": 12,
+    "aspect": "N",
+    "hazards": "Hand-cut glades: stumps, rocks and tree wells, thin cover early season. Respect the landowner rules GBA posts for the zone."
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -70.908862,
+      43.925187
+     ],
+     [
+      -70.907808,
+      43.925783
+     ],
+     [
+      -70.906542,
+      43.926711
+     ],
+     [
+      -70.906124,
+      43.928047
+     ],
+     [
+      -70.906705,
+      43.928684
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "key": "wc-merrymeeting",
+    "name": "Merrymeeting",
+    "area": "Whitecap (Rumford)",
+    "zone": "gba-maine",
+    "osm_way": 849607228,
+    "osm_ways": [
+     849607228
+    ],
+    "top_ft": 2246,
+    "bottom_ft": 1367,
+    "vert_ft": 880,
+    "length_ft": 3905,
+    "slope_mean_deg": 12.7,
+    "slope_max_deg": 25.7,
+    "aspect_deg": 216,
+    "aspect": "SW",
+    "hazards": "Hand-cut glades: stumps, rocks and tree wells, thin cover early season. Respect the landowner rules GBA posts for the zone."
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -70.632225,
+      44.581668
+     ],
+     [
+      -70.632439,
+      44.581634
+     ],
+     [
+      -70.632579,
+      44.58163
+     ],
+     [
+      -70.632718,
+      44.581657
+     ],
+     [
+      -70.632911,
+      44.581584
+     ],
+     [
+      -70.633196,
+      44.581542
+     ],
+     [
+      -70.633721,
+      44.58147
+     ],
+     [
+      -70.634204,
+      44.581252
+     ],
+     [
+      -70.634671,
+      44.581164
+     ],
+     [
+      -70.635148,
+      44.581099
+     ],
+     [
+      -70.635631,
+      44.58092
+     ],
+     [
+      -70.635899,
+      44.580778
+     ],
+     [
+      -70.636087,
+      44.580503
+     ],
+     [
+      -70.636178,
+      44.580224
+     ],
+     [
+      -70.636318,
+      44.58001
+     ],
+     [
+      -70.636801,
+      44.5798
+     ],
+     [
+      -70.637197,
+      44.579724
+     ],
+     [
+      -70.637492,
+      44.579808
+     ],
+     [
+      -70.637788,
+      44.579831
+     ],
+     [
+      -70.638185,
+      44.579693
+     ],
+     [
+      -70.638533,
+      44.579494
+     ],
+     [
+      -70.638775,
+      44.579277
+     ],
+     [
+      -70.638989,
+      44.578986
+     ],
+     [
+      -70.639295,
+      44.578745
+     ],
+     [
+      -70.639874,
+      44.578413
+     ],
+     [
+      -70.64062,
+      44.578134
+     ],
+     [
+      -70.641076,
+      44.577955
+     ],
+     [
+      -70.641233,
+      44.577887
+     ],
+     [
+      -70.641434,
+      44.577859
+     ],
+     [
+      -70.641729,
+      44.577881
+     ],
+     [
+      -70.642137,
+      44.578018
+     ],
+     [
+      -70.642451,
+      44.578152
+     ],
+     [
+      -70.642781,
+      44.578176
+     ],
+     [
+      -70.643174,
+      44.578157
+     ],
+     [
+      -70.643629,
+      44.578111
+     ],
+     [
+      -70.643941,
+      44.578016
+     ],
+     [
+      -70.644053,
+      44.577909
+     ],
+     [
+      -70.644092,
+      44.577732
+     ],
+     [
+      -70.644238,
+      44.577561
+     ],
+     [
+      -70.644319,
+      44.577484
+     ],
+     [
+      -70.644404,
+      44.577438
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "key": "wc-quarry-line",
+    "name": "Quarry Line",
+    "area": "Whitecap (Rumford)",
+    "zone": "gba-maine",
+    "osm_way": 860195744,
+    "osm_ways": [
+     860195744
+    ],
+    "top_ft": 1874,
+    "bottom_ft": 1190,
+    "vert_ft": 684,
+    "length_ft": 2036,
+    "slope_mean_deg": 18.6,
+    "slope_max_deg": 30.8,
+    "aspect_deg": 215,
+    "aspect": "SW",
+    "hazards": "Hand-cut glades: stumps, rocks and tree wells, thin cover early season. Respect the landowner rules GBA posts for the zone."
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -70.671444,
+      44.566727
+     ],
+     [
+      -70.671594,
+      44.566509
+     ],
+     [
+      -70.671793,
+      44.566326
+     ],
+     [
+      -70.671959,
+      44.566265
+     ],
+     [
+      -70.672206,
+      44.566238
+     ],
+     [
+      -70.67249,
+      44.566146
+     ],
+     [
+      -70.672683,
+      44.565967
+     ],
+     [
+      -70.672839,
+      44.56581
+     ],
+     [
+      -70.67301,
+      44.565756
+     ],
+     [
+      -70.673263,
+      44.565718
+     ],
+     [
+      -70.673541,
+      44.565535
+     ],
+     [
+      -70.673756,
+      44.56529
+     ],
+     [
+      -70.674099,
+      44.565027
+     ],
+     [
+      -70.67433,
+      44.564893
+     ],
+     [
+      -70.674389,
+      44.564797
+     ],
+     [
+      -70.674362,
+      44.564725
+     ],
+     [
+      -70.674414,
+      44.56467
+     ],
+     [
+      -70.674559,
+      44.564688
+     ],
+     [
+      -70.67477,
+      44.564748
+     ],
+     [
+      -70.674937,
+      44.56469
+     ],
+     [
+      -70.675078,
+      44.564583
+     ],
+     [
+      -70.675247,
+      44.564537
+     ],
+     [
+      -70.675456,
+      44.564572
+     ],
+     [
+      -70.675644,
+      44.564575
+     ],
+     [
+      -70.675933,
+      44.564492
+     ],
+     [
+      -70.676084,
+      44.564325
+     ],
+     [
+      -70.676336,
+      44.564189
+     ],
+     [
+      -70.676733,
+      44.563941
+     ],
+     [
+      -70.67691,
+      44.563815
+     ],
+     [
+      -70.67691,
+      44.563696
+     ],
+     [
+      -70.676824,
+      44.563532
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "key": "wc-red-pine-line",
+    "name": "Red Pine Line",
+    "area": "Whitecap (Rumford)",
+    "zone": "gba-maine",
+    "osm_way": 860196422,
+    "osm_ways": [
+     860196422
+    ],
+    "top_ft": 1802,
+    "bottom_ft": 1158,
+    "vert_ft": 644,
+    "length_ft": 2074,
+    "slope_mean_deg": 17.3,
+    "slope_max_deg": 31.9,
+    "aspect_deg": 226,
+    "aspect": "SW",
+    "hazards": "Hand-cut glades: stumps, rocks and tree wells, thin cover early season. Respect the landowner rules GBA posts for the zone."
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -70.670497,
+      44.565082
+     ],
+     [
+      -70.670462,
+      44.564918
+     ],
+     [
+      -70.670529,
+      44.564784
+     ],
+     [
+      -70.670696,
+      44.564788
+     ],
+     [
+      -70.670859,
+      44.564811
+     ],
+     [
+      -70.67102,
+      44.564795
+     ],
+     [
+      -70.671251,
+      44.564686
+     ],
+     [
+      -70.671535,
+      44.564398
+     ],
+     [
+      -70.671667,
+      44.564383
+     ],
+     [
+      -70.671873,
+      44.56426
+     ],
+     [
+      -70.67209,
+      44.564281
+     ],
+     [
+      -70.672219,
+      44.564226
+     ],
+     [
+      -70.672334,
+      44.564155
+     ],
+     [
+      -70.672474,
+      44.563998
+     ],
+     [
+      -70.67271,
+      44.563788
+     ],
+     [
+      -70.673053,
+      44.563643
+     ],
+     [
+      -70.673391,
+      44.563563
+     ],
+     [
+      -70.673627,
+      44.563555
+     ],
+     [
+      -70.673799,
+      44.563467
+     ],
+     [
+      -70.673971,
+      44.563383
+     ],
+     [
+      -70.674314,
+      44.563383
+     ],
+     [
+      -70.67462,
+      44.563291
+     ],
+     [
+      -70.674926,
+      44.56323
+     ],
+     [
+      -70.675038,
+      44.563211
+     ],
+     [
+      -70.675296,
+      44.563045
+     ],
+     [
+      -70.675583,
+      44.562882
+     ],
+     [
+      -70.675792,
+      44.562798
+     ],
+     [
+      -70.675923,
+      44.562747
+     ],
+     [
+      -70.67609,
+      44.56272
+     ],
+     [
+      -70.676194,
+      44.562728
+     ],
+     [
+      -70.676352,
+      44.562758
+     ],
+     [
+      -70.676481,
+      44.562814
+     ],
+     [
+      -70.676562,
+      44.562829
+     ],
+     [
+      -70.676685,
+      44.562787
+     ],
+     [
+      -70.676782,
+      44.562707
+     ],
+     [
+      -70.676835,
+      44.562626
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "key": "wc-smokestack",
+    "name": "Smokestack",
+    "area": "Whitecap (Rumford)",
+    "zone": "gba-maine",
+    "osm_way": 860166968,
+    "osm_ways": [
+     860166968
+    ],
+    "top_ft": 2123,
+    "bottom_ft": 1628,
+    "vert_ft": 495,
+    "length_ft": 983,
+    "slope_mean_deg": 26.7,
+    "slope_max_deg": 35.6,
+    "aspect_deg": 137,
+    "aspect": "SE",
+    "hazards": "Hand-cut glades: stumps, rocks and tree wells, thin cover early season. Respect the landowner rules GBA posts for the zone."
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -70.656869,
+      44.573522
+     ],
+     [
+      -70.65658,
+      44.573373
+     ],
+     [
+      -70.656311,
+      44.573235
+     ],
+     [
+      -70.656032,
+      44.573071
+     ],
+     [
+      -70.655727,
+      44.572968
+     ],
+     [
+      -70.655571,
+      44.572857
+     ],
+     [
+      -70.655389,
+      44.572693
+     ],
+     [
+      -70.655233,
+      44.572547
+     ],
+     [
+      -70.655158,
+      44.572395
+     ],
+     [
+      -70.655094,
+      44.572291
+     ],
+     [
+      -70.654938,
+      44.572173
+     ],
+     [
+      -70.654863,
+      44.572062
+     ],
+     [
+      -70.654718,
+      44.571963
+     ],
+     [
+      -70.65452,
+      44.571886
+     ],
+     [
+      -70.654155,
+      44.571756
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "key": "wc-waterfall",
+    "name": "Waterfall",
+    "area": "Whitecap (Rumford)",
+    "zone": "gba-maine",
+    "osm_way": 860166969,
+    "osm_ways": [
+     860166969
+    ],
+    "top_ft": 2099,
+    "bottom_ft": 1642,
+    "vert_ft": 457,
+    "length_ft": 1053,
+    "slope_mean_deg": 23.5,
+    "slope_max_deg": 34.2,
+    "aspect_deg": 109,
+    "aspect": "E",
+    "hazards": "Hand-cut glades: stumps, rocks and tree wells, thin cover early season. Respect the landowner rules GBA posts for the zone."
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -70.656316,
+      44.573767
+     ],
+     [
+      -70.656065,
+      44.573671
+     ],
+     [
+      -70.655759,
+      44.573633
+     ],
+     [
+      -70.655373,
+      44.573602
+     ],
+     [
+      -70.655104,
+      44.573575
+     ],
+     [
+      -70.654729,
+      44.573522
+     ],
+     [
+      -70.654522,
+      44.573529
+     ],
+     [
+      -70.65431,
+      44.573602
+     ],
+     [
+      -70.654064,
+      44.573629
+     ],
+     [
+      -70.653833,
+      44.573648
+     ],
+     [
+      -70.653581,
+      44.573583
+     ],
+     [
+      -70.65335,
+      44.573495
+     ],
+     [
+      -70.653254,
+      44.573342
+     ],
+     [
+      -70.653055,
+      44.573258
+     ],
+     [
+      -70.652787,
+      44.573231
+     ],
+     [
+      -70.652604,
+      44.573144
+     ]
+    ]
+   }
+  }
+ ]
+}

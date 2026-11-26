@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+.DS_Store
+.claude/
+
+# Generated each run (the GitHub Action rebuilds these). Raw downloads are never committed.
+data/*
+# ...except slow-changing caches worth keeping so scheduled runs don't re-hit lookup services:
+!data/drive_times.json
+!data/gridpoints.json

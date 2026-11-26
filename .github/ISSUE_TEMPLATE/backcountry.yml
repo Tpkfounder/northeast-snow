@@ -1,0 +1,25 @@
+name: Suggest a backcountry line or zone
+description: A line or zone to add to the backcountry view.
+labels: [backcountry]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This site never recommends skiing a line. It scores conditions and always shows the official avalanche forecast, or says there isn't one. Suggested lines need to be mapped in OpenStreetMap (a way tagged `piste:type=skitour` or similar) so the site can use their real shape.
+  - type: input
+    id: line
+    attributes:
+      label: Line or zone
+      placeholder: e.g. Hellbrook, Mount Mansfield
+    validations:
+      required: true
+  - type: input
+    id: osm
+    attributes:
+      label: OpenStreetMap link (if mapped)
+      placeholder: https://www.openstreetmap.org/way/...
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Access, land-owner rules, hazards, which avalanche center (if any) covers it.

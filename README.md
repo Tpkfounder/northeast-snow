@@ -1,59 +1,131 @@
-# Northeast Snow (TPK Labs)
+<h1 align="center">Northeast Snow</h1>
 
-A Northeast US snow map with three views, rebuilt from public weather data every few hours:
+<p align="center">
+  <b>Where's the snow, where should I ski this weekend, and is that backcountry line in?</b><br>
+  A free snow map for New York and New England, rebuilt from public weather data every 3 hours.
+</p>
 
-1. **Storm totals:** next-72h snowfall per mountain as a range (WPC 10th / 50th / 90th percentile) plus the NWS point forecast.
-2. **Where to ski this weekend:** Ikon, Epic and Indy resorts ranked by snow conditions × wind-hold risk × drive time from Westchester, NY.
-3. **Backcountry lines:** curated lines in five zones (Presidential Range, Mount Mansfield, Adirondack High Peaks, Katahdin, Granite Backcountry Alliance glades in Maine), scored daily. The Presidentials are gated by the official Mount Washington Avalanche Center rating; zones no avalanche center covers always read "no avalanche forecast — conditions score only". It never says "go ski this." Each zone can be toggled on and off.
+<p align="center">
+  <a href="https://tpkfounder.github.io/northeast-snow/"><b>Open the live site →</b></a>
+  &nbsp;·&nbsp;
+  <a href="https://tpkfounder.github.io/northeast-snow/data/alerts.xml">Powder alerts (RSS)</a>
+  &nbsp;·&nbsp;
+  <a href="CHANGELOG.md">What's new</a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Tpkfounder/northeast-snow/actions/workflows/update.yml"><img alt="Data update" src="https://github.com/Tpkfounder/northeast-snow/actions/workflows/update.yml/badge.svg"></a>
+  <img alt="Coverage: NY and New England" src="https://img.shields.io/badge/coverage-NY%20%2B%20New%20England-1f4fd1">
+  <img alt="54 resorts, 30 backcountry lines" src="https://img.shields.io/badge/resorts-54%20%C2%B7%20lines%2030-6b21a8">
+  <img alt="License: all rights reserved" src="https://img.shields.io/badge/license-all%20rights%20reserved-555">
+</p>
+
+![Storm totals view: 72-hour snowfall for every Ikon, Epic and Indy resort and backcountry zone in NY and New England](docs/storm.png)
+
+## What it does
+
+| | |
+|---|---|
+| **❄️ Storm totals** | Next-72-hour snowfall for every mountain as a *range* (low / likely / high from NOAA's probabilistic forecast), not a single number. Each popup has an hour-by-hour **storm timeline** of snow vs rain, and the modeled **snow already on the ground**. |
+| **🎿 Where to ski this weekend** | Ranks **54 Ikon, Epic and Indy resorts** by snow conditions × wind-hold risk × drive time. Filter by pass and maximum drive, see a **best bet** summary, and skip resorts that **aren't open yet**. |
+| **⛰️ Backcountry lines** | **30 curated lines in 5 zones**: Presidential Range, Mount Mansfield, Adirondack High Peaks, Katahdin and Granite Backcountry Alliance glades. Scored daily for fresh snow, coverage, wind loading and surface, and **gated by the official avalanche forecast**. Each zone toggles on and off. |
+| **🔔 Powder alerts** | An RSS feed of anything forecast 6"+ in the next 72 hours. Subscribe in a feed reader, or send it to email with a service like Blogtrottr. |
+
+<table>
+  <tr>
+    <td width="62%"><img alt="Weekend view: resorts ranked with a best-bet summary" src="docs/weekend.png"></td>
+    <td width="38%"><img alt="Mount Washington popup with snowfall range, storm timeline and snow depth" src="docs/popup.png"></td>
+  </tr>
+  <tr>
+    <td><sub>Where to ski this weekend: ranked, filterable, honest when nothing is good.</sub></td>
+    <td><sub>Every mountain: range, storm timeline, snow on the ground.</sub></td>
+  </tr>
+</table>
+
+![Backcountry view: Tuckerman Ravine and Gulf of Slides lines with the avalanche forecast banner](docs/backcountry.png)
+
+## The backcountry safety rule
+
+This site **never says "go ski this."** The best a line can ever read is *"looks in condition, pending the avalanche forecast"*, and every line shows and links the official avalanche danger rating.
+
+- At **Considerable (3) or higher**, lines are greyed out and get no score.
+- Where no avalanche center forecasts a zone (Vermont, the Adirondacks, Katahdin, the Maine glades), every line permanently reads **"No avalanche forecast — conditions score only"**.
+
+A snow score isn't a stability assessment. Avalanche terrain needs training, partners, rescue gear and the day's forecast.
+
+## How it works
+
+```mermaid
+flowchart LR
+  subgraph Sources["Public data (every 3 h)"]
+    NWS[NWS point forecasts]
+    WPC[WPC snowfall percentiles]
+    NOH[NOHRSC observed snowfall]
+    SNO[SNODAS snow depth]
+    AVY[avalanche.org ratings]
+    VAL[Valhalla drive times]
+  end
+  subgraph Action["GitHub Action: update.sh"]
+    F[fetch_*.py] --> S[score.py<br>score_backcountry.py<br>make_alerts.py]
+  end
+  Sources --> F
+  S --> J[(data/*.json<br>alerts.xml<br>status.json)]
+  J --> P[GitHub Pages<br>index.html + app.js]
+```
+
+A scheduled GitHub Action runs `update.sh` from 5 am to 10 pm Eastern. The Python scripts fetch and score everything into small JSON files, and a static page (Leaflet map, no build step, no server) reads them. If a source fails, the page says which one; if the data goes more than 8 hours stale, it warns.
 
 ## Data sources
+
 | What | Source |
 |---|---|
-| Point forecast (snow, temp, wind) | NWS gridpoint API (api.weather.gov) |
-| Snowfall percentiles | WPC Probabilistic Precipitation Portal (NBM-based GRIB2) |
-| Observed snowfall, season to date | NOHRSC National Snowfall Analysis v2 |
-| Snow depth on the ground (modeled) | NOAA NOHRSC SNODAS via NSIDC (G02158), daily ~1 km grid |
-| Drive times (cached) | Valhalla on OpenStreetMap data (valhalla1.openstreetmap.de) |
-| Avalanche danger | avalanche.org public API |
-| Season opening dates (snapshot) | snowpack.report, which links each resort's own announcement |
-| Resort websites / snow report links | Resort sites; Indy links from indyskipass.com resort pages |
-| Backcountry line geometry | OpenStreetMap (ODbL) |
-| Slope / aspect / elevation | USGS 3DEP lidar |
+| Point forecast (snow, rain, temperature, wind) | [NWS gridpoint API](https://www.weather.gov/documentation/services-web-api) |
+| Snowfall ranges (10th–90th percentile) | [WPC Probabilistic Precipitation Portal](https://www.wpc.ncep.noaa.gov/pwpf/) |
+| Observed and season-to-date snowfall | [NOHRSC National Snowfall Analysis](https://www.nohrsc.noaa.gov/snowfall/) |
+| Snow depth on the ground (modeled) | [NOAA SNODAS via NSIDC](https://nsidc.org/data/g02158) |
+| Avalanche danger | [avalanche.org](https://avalanche.org) public API |
+| Drive times (cached) | [Valhalla](https://valhalla1.openstreetmap.de) on OpenStreetMap data |
+| Backcountry line geometry | [OpenStreetMap](https://www.openstreetmap.org/copyright) (ODbL) |
+| Slope, aspect and elevation | [USGS 3DEP](https://www.usgs.gov/3d-elevation-program) lidar |
+| Season opening dates (weekly snapshot) | [snowpack.report](https://snowpack.report/opening-dates), which links each resort's own announcement |
+| Resort websites and snow reports | Each resort's site; Indy links from [indyskipass.com](https://www.indyskipass.com/our-resorts) |
 
-## Also
-- **Storm timeline:** each mountain's popup charts snow and rain in 6-hour blocks for the next 72 h.
-- **Snow on the ground:** SNODAS modeled depth (natural snow, not resort base depth) at each summit and base; backcountry coverage scores use it.
-- **Powder alerts:** `data/alerts.xml` is an RSS feed of anything forecast 6"+ in 72 h (threshold in `make_alerts.py`). Subscribe in any feed reader, or pipe it to email with a service like Blogtrottr or IFTTT.
-- **Stale-data warning:** `update.sh` records each step in `data/status.json`; the page warns when data is over 8 hours old or a source failed.
-- **Opening dates:** a weekly scheduled Claude task (Mondays 8 am, runs while the Claude app is open) refreshes `config/resort_info.json` and commits it locally; push with GitHub Desktop.
+## Limitations
 
-## Run locally
+- **Forecasts, not guarantees.** Ranges show the uncertainty; trust the middle less when the range is wide.
+- **Snow depth is modeled natural snow.** SNODAS doesn't know about snowmaking or grooming, so resort bases will usually be deeper.
+- **Opening dates are a weekly snapshot,** not live lift status. Always check the resort's snow report (linked in every popup).
+- **Drive times are free-flow.** Weekend ski traffic is often 20–40% slower.
+
+## Project layout
+
+```
+config/
+  mountains.json            tracked mountains: weather point, base for driving, pass
+  resort_info.json          resort website, snow-report link, opening date (snapshot)
+  scoring.json              weekend-score weights
+  backcountry/<zone>_lines.json   one file per zone: avalanche center, hazards, line list
+fetch_nws.py  fetch_ppp.py  fetch_recent.py  fetch_depth.py  fetch_drive.py
+score.py  score_backcountry.py  make_alerts.py  build_backcountry.py
+update.sh                   runs everything; writes data/status.json
+index.html  app.js          the site (no build step)
+docs/                       screenshots for this README
+```
+
+## Run it locally
+
 ```bash
 python3.13 -m venv .venv && .venv/bin/pip install -r requirements.txt
-./update.sh                 # fetch everything, score, write data/*.json
-python3 -m http.server 8765 # then open http://localhost:8765
+./update.sh                  # fetch, score, write data/
+python3 -m http.server 8765  # open http://localhost:8765
 ```
-Python 3.13 is required: the ecCodes GRIB library has no wheels for newer versions yet.
 
-## Layout
-- `config/mountains.json`: tracked mountains (summit point for weather, base point for driving).
-- `config/scoring.json`: weekend-score weights. Tune, then run `python score.py`.
-- `config/resort_info.json`: each resort's website, snow-report link and 2026-27 opening date (a snapshot with an `as_of` date, not live). A resort with an announced opening day after the weekend scores 0 and sorts last. Update it weekly in early season.
-- `config/backcountry/<zone>_lines.json`: one file per backcountry zone (avalanche center, sample points, hazards, line list). After editing, run `python build_backcountry.py <zone>` to rebuild `<zone>.geojson`. A zone with `"avalanche_center_id": null` is permanently "no avalanche forecast".
-- `index.html` + `app.js`: the page. No build step.
-- `data/`: generated output. Only `drive_times.json` and `gridpoints.json` (slow-changing caches) are committed.
+Python 3.13 is required: the ecCodes GRIB library has no wheels for newer versions yet. To add or edit backcountry lines, edit `config/backcountry/<zone>_lines.json` and run `python build_backcountry.py <zone>`.
 
-## Hosting
-`.github/workflows/update.yml` runs `update.sh` on a schedule and publishes `index.html` + `data/*.json` to GitHub Pages.
-In the repo settings, set Settings → Pages → Source to **GitHub Actions**. The schedule can also be triggered manually from the Actions tab.
-Optional: set a repository variable `NWS_CONTACT` (e.g. a project email) to include in the NWS User-Agent.
+## Security and privacy
 
-## Security
-- The site is static: no server, no logins, no cookies, no user data collected. GitHub Pages serves it over HTTPS only.
-- `index.html` sets a Content-Security-Policy: scripts only from this site and the pinned Leaflet build on cdnjs, which is loaded with a Subresource Integrity hash (a modified copy won't run). No inline scripts.
-- All data inserted into the page is HTML-escaped and links must be `https://`, so odd text coming back from an upstream API can't inject markup.
-- The workflow has no permissions by default; each job gets the minimum. Actions are pinned to full commit SHAs, checkout doesn't keep git credentials, and pip installs prebuilt wheels only (no package build scripts run). Dependabot proposes updates monthly.
-- No secrets are needed or stored. Keep it that way: never commit API keys or personal emails.
+No accounts, no cookies, no tracking, no user data. The page runs under a strict Content-Security-Policy with a pinned, integrity-checked map library. The update workflow runs with least privilege and SHA-pinned actions, and no secrets are stored. See [SECURITY.md](SECURITY.md) to report a problem.
 
 ## License
-Copyright (c) 2026 TPK Labs. All rights reserved; see [LICENSE](LICENSE). Third-party data and libraries keep their own terms (OpenStreetMap data is ODbL and must stay attributed).
+
+Copyright © 2026 TPK Labs. **All rights reserved**; see [LICENSE](LICENSE). You're welcome to use the website. The code and curated lists may not be reused without permission. Third-party data keeps its own terms: OpenStreetMap data is © OpenStreetMap contributors (ODbL), and government weather and terrain data is public domain.

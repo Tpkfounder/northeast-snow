@@ -1,0 +1,23 @@
+name: Add or fix a resort
+description: Suggest a missing resort, or report wrong details (location, pass, opening date, link).
+labels: [resort]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Resort
+      placeholder: e.g. Mad River Glen, VT
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What's the request?
+      options: [Add a missing resort, Wrong location on the map, Wrong pass, Wrong opening date, Wrong or broken link, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details and source
+      description: A link to the resort's own page or the pass's resort list helps a lot.

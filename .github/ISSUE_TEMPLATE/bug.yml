@@ -1,0 +1,26 @@
+name: Something looks wrong
+description: A bug, wrong data, or something that doesn't display right.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What's wrong?
+      description: What did you see, and what did you expect?
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Where on the site?
+      placeholder: e.g. Weekend view, Stowe popup
+  - type: dropdown
+    id: device
+    attributes:
+      label: Device
+      options: [Phone, Tablet, Computer]
+  - type: textarea
+    id: shot
+    attributes:
+      label: Screenshot (optional)
+      description: Drag an image in here.

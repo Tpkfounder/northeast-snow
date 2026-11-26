@@ -51,6 +51,32 @@ function seasonChip(info) {
   const text = s.status === "opened" ? `Opened ${fmtDate(s.date)}` : s.status === "scheduled" ? `Opens ${fmtDate(s.date)}` : "No opening date yet";
   return `<span class="season ${s.status}">${text}</span>`;
 }
+let depthById = {}, depthDate = null, alerts = null, runStatus = null;
+const depthText = m => {
+  const d = depthById[m.id];
+  if (!d || d.top_in == null) return "";
+  return `${fmtIn(d.top_in)} up top${d.base_in != null ? ` · ${fmtIn(d.base_in)} at the base` : ""}`;
+};
+// 6-hour storm timeline: blue bars = snow, green = rain (liquid × 10 so it shows on the same scale).
+function timelineSvg(tl) {
+  if (!tl?.length) return "";
+  const W = 288, H = 78, top = 14, base = H - 18, bw = W / tl.length;
+  const max = Math.max(1, ...tl.map(b => Math.max(b.snow_in, b.rain_in * 10)));
+  const y = v => base - (v / max) * (base - top);
+  const bars = tl.map((b, i) => {
+    const x = i * bw, t = new Date(b.start), h6 = t.getHours();
+    const tick = h6 === 0 ? `<text x="${x + 1}" y="${H - 4}" font-size="9" fill="currentColor">${t.toLocaleDateString([], { weekday: "short" })}</text>
+      <line x1="${x}" x2="${x}" y1="${top - 6}" y2="${base}" stroke="currentColor" stroke-opacity=".15"/>` : "";
+    const snow = b.snow_in > 0 ? `<rect x="${x + 1.5}" y="${y(b.snow_in)}" width="${bw - 3}" height="${base - y(b.snow_in)}" fill="${css("--s3")}" rx="1.5"><title>${t.toLocaleString([], { weekday: "short", hour: "numeric" })}: ${fmtIn(b.snow_in)} snow</title></rect>` : "";
+    const rain = b.rain_in >= 0.01 ? `<rect x="${x + bw / 2}" y="${y(b.rain_in * 10)}" width="${bw / 2 - 1.5}" height="${base - y(b.rain_in * 10)}" fill="${css("--rain")}" opacity=".75" rx="1.5"><title>${t.toLocaleString([], { weekday: "short", hour: "numeric" })}: ${b.rain_in.toFixed(2)}″ rain</title></rect>` : "";
+    const lbl = b.snow_in >= 1 ? `<text x="${x + bw / 2}" y="${y(b.snow_in) - 2}" font-size="9" text-anchor="middle" fill="currentColor">${Math.round(b.snow_in)}</text>` : "";
+    return tick + rain + snow + lbl;
+  }).join("");
+  return `<div class="tl"><b>Storm timeline</b> <span class="sub">6-hour blocks · <span style="color:var(--s3)">■</span> snow (in) <span style="color:var(--rain)">■</span> rain</span>
+    <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Snow and rain by 6-hour block">
+      <line x1="0" x2="${W}" y1="${base}" y2="${base}" stroke="currentColor" stroke-opacity=".3"/>${bars}</svg></div>`;
+}
+
 function seasonBlock(info) {
   if (!info) return "";
   const chip = seasonChip(info), link = extLink(info.report || info.site, "Snow report ↗");
@@ -77,6 +103,7 @@ function popupHtml(m) {
       <tr><td>High (90th pct)</td><td>${fmtIn(m.range.p90)}</td></tr>
       <tr><td>Middle half (25th–75th)</td><td>${fmtIn(m.range.p25)}–${fmtIn(m.range.p75)}</td></tr>
     </table>${rangeBar(m.range)}` : `<div class="sub" style="margin-top:6px">No WPC range data for this run.</div>`}
+    ${timelineSvg(m.timeline)}
     <table>
       <tr><td colspan="2"><b>NWS point forecast</b><br><span class="sub">next 72h from ${new Date(m.window_start).toLocaleString([], { weekday: "short", hour: "numeric" })}</span></td></tr>
       <tr><td>72h snow</td><td><b>${fmtIn(m.snow_72h_in)}</b></td></tr>
@@ -84,6 +111,7 @@ function popupHtml(m) {
       <tr><td>Liquid (QPF)</td><td>${m.qpf_72h_in.toFixed(2)}″${m.slr ? ` · SLR ${m.slr}:1` : ""}</td></tr>
       <tr><td>Temp range</td><td>${m.temp_min_f}–${m.temp_max_f}°F</td></tr>
       <tr><td>Max wind / gust</td><td>${m.wind_max_mph} / ${m.gust_max_mph ?? "–"} mph ${dirName(m.wind_dir_mode_deg)}</td></tr>
+      ${depthText(m) ? `<tr><td>Snow on the ground<br><span class="sub">SNODAS model, ${fmtDate(depthDate)}</span></td><td>${depthText(m)}</td></tr>` : ""}
     </table>
     ${mostlyRain(m) ? `<div class="rain">Mostly rain or mixed precipitation</div>` : ""}
     ${bcWarn}${m.pass === "Backcountry" ? "" : seasonBlock(infoById[m.id])}
@@ -112,7 +140,7 @@ function weekendPopup(m, r) {
     <h3>${fRank[r.id] ?? r.rank}. ${esc(r.name)} · ${r.score} <span class="sub">${g}${(fRank[r.id] ?? r.rank) !== r.rank ? ` · #${r.rank} overall` : ""}</span></h3>
     <div class="sub"><span class="pass ${esc(r.pass)}">${esc(r.pass.toUpperCase())}</span> · ${esc(r.state)} · ${fmtH(r.drive_h)} drive (${r.drive_mi ?? "–"} mi, free-flow)</div>
     <div class="days">${r.days.map(day).join("")}</div>
-    <div class="sub" style="margin-top:8px">Observed last 7 days: ${fmtIn(r.recent_7d_in)}${r.storm_range ? ` · WPC 72h range ${rangeText(r.storm_range)}` : ""}</div>
+    <div class="sub" style="margin-top:8px">${depthText(r) ? `Snow on the ground (model): ${depthText(r)} · ` : ""}Observed last 7 days: ${fmtIn(r.recent_7d_in)}${r.storm_range ? ` · WPC 72h range ${rangeText(r.storm_range)}` : ""}</div>
     ${seasonBlock(r)}
   </div>`;
 }
@@ -223,7 +251,7 @@ function bcPopup(p, d) {
     <table>
       <tr><td colspan="2"><b>${d.label} · conditions ${d.score}/100</b> <span class="sub">${d.conditions_label}</span></td></tr>
       <tr><td>Fresh snow</td><td>${fmtIn(c.fresh_in)} <span class="sub">(${fmtIn(c.fresh_forecast_in)} fcst + ${fmtIn(c.fresh_observed_in)} obs) · ${d.parts.fresh}/35</span></td></tr>
-      <tr><td>Season to date</td><td>${c.season_in == null ? "–" : fmtIn(c.season_in)} <span class="sub">· ${d.parts.coverage}/20</span></td></tr>
+      <tr><td>Coverage</td><td>${c.depth_in != null ? `${fmtIn(c.depth_in)} on the ground <span class="sub">(SNODAS model)</span>` : `${c.season_in == null ? "–" : fmtIn(c.season_in)} season snowfall`} <span class="sub">· ${d.parts.coverage}/20</span></td></tr>
       <tr><td>Wind</td><td>${d.wind_effect}${c.wind.hours ? ` <span class="sub">(${c.wind.mean_mph} mph from ${dirName(c.wind.from_deg)}, ${c.wind.hours}h)</span>` : ""} <span class="sub">· ${d.parts.wind}/20</span></td></tr>
       <tr><td>Surface</td><td>${d.surface} <span class="sub">· ${d.parts.surface}/25</span></td></tr>
       <tr><td>Temps</td><td>${c.temp_overnight_min_f ?? "–"}°F overnight · ${c.temp_day_max_f ?? "–"}°F high</td></tr>
@@ -312,6 +340,28 @@ function visibleRows() {
   });
 }
 
+function stormSummary() {
+  const el = document.getElementById("summary");
+  const feed = `<a href="data/alerts.xml" type="application/rss+xml">Subscribe to powder alerts (RSS)</a>`;
+  const list = (alerts?.alerts || []).filter(a => a.pass === "Backcountry" ? showBC : filter === "all" || a.pass === filter);
+  el.innerHTML = list.length
+    ? `<b>Powder alert:</b> ${list.slice(0, 4).map(a => `${esc(a.name)} ${fmtIn(a.likely_in)}`).join(", ")}${list.length > 4 ? ` +${list.length - 4} more` : ""}
+       <span class="sub">${Math.round(alerts.threshold_in)}″+ likely in the next 72 h. ${feed}</span>`
+    : `<b>No powder alerts</b> <span class="sub">Nothing here is forecast ${Math.round(alerts?.threshold_in ?? 6)}″+ in the next 72 h. ${feed}</span>`;
+}
+
+// Warn when the data is old (the scheduled update may be failing) or a source failed on the last run.
+function renderStale() {
+  const el = document.getElementById("stale");
+  const msgs = [];
+  const gen = rows.length ? Date.parse(rows[0].generated_at || 0) : 0;
+  const ageH = gen ? (Date.now() - gen) / 3.6e6 : null;
+  if (ageH != null && ageH > 8) msgs.push(`<b>Forecast data is ${Math.round(ageH)} hours old.</b> The automatic update may be failing; numbers below may be out of date.`);
+  for (const s of runStatus?.steps || []) if (!s.ok) msgs.push(`Last update couldn't get <b>${esc(s.name)}</b>: ${esc(s.lost)}.`);
+  el.innerHTML = msgs.join("<br>");
+  el.hidden = !msgs.length;
+}
+
 function weekendSummary(ranked) {
   const el = document.getElementById("summary");
   const open = ranked.filter(r => !r.days.every(d => d.closed));
@@ -353,7 +403,9 @@ function render() {
   document.getElementById("bc-head").hidden = view !== "backcountry";
   document.getElementById("pass-filters").hidden = view === "backcountry";
   document.querySelector("[data-bc]").hidden = document.getElementById("bc-sep").hidden = view !== "storm";
-  document.getElementById("wk-tools").hidden = document.getElementById("summary").hidden = view !== "weekend";
+  document.getElementById("wk-tools").hidden = view !== "weekend";
+  document.getElementById("summary").hidden = view === "backcountry";
+  renderStale();
   const list = document.getElementById("list");
   if (view === "backcountry") { renderBackcountry(list); return; }
   bcLayer?.remove(); bcLayer = null; bcZoneLayer?.remove(); bcZoneLayer = null;
@@ -377,11 +429,12 @@ function render() {
     return;
   }
 
+  stormSummary();
   list.innerHTML = vis.slice().sort((a, b) => likely(b) - likely(a) || (b.range?.p90 ?? 0) - (a.range?.p90 ?? 0) || a.name.localeCompare(b.name)).map(m => `
     <li tabindex="0" data-id="${esc(m.id)}">
       <span class="sw ${m.pass === "Backcountry" ? "tri" : ""}" style="background:${snowColor(likely(m))}"></span>
       <span><span class="nm">${esc(m.name)}</span><br>
-        <span class="sub"><span class="pass ${esc(m.pass)}">${esc(m.pass.toUpperCase())}</span> · ${esc(m.state)} · ${m.temp_min_f}–${m.temp_max_f}°F</span>
+        <span class="sub"><span class="pass ${esc(m.pass)}">${esc(m.pass.toUpperCase())}</span> · ${esc(m.state)} · ${m.temp_min_f}–${m.temp_max_f}°F${depthById[m.id]?.top_in >= 1 ? ` · ${fmtIn(depthById[m.id].top_in)} on ground` : ""}</span>
         ${mostlyRain(m) ? `<br><span class="rain">Mostly rain/mix · ${m.qpf_72h_in.toFixed(2)}″ liquid</span>` : ""}
         ${rangeBar(m.range)}</span>
       <span class="amt">${fmtIn(likely(m))}<span class="rng">${m.range ? rangeText(m.range) : "NWS only"}</span></span>
@@ -458,8 +511,13 @@ Promise.all([
   getJson("data/storm_ranges.json").catch(() => null),
   getJson("data/weekend_rank.json").catch(() => null),
   getJson("data/backcountry.json").catch(() => null),
+  getJson("data/snow_depth.json").catch(() => null),
+  getJson("data/alerts.json").catch(() => null),
+  getJson("data/status.json").catch(() => null),
 ])
-  .then(([d, ranges, weekend, backcountry]) => {
+  .then(([d, ranges, weekend, backcountry, depth, alertData, status]) => {
+    depthById = depth?.mountains || {}; depthDate = depth?.date ?? null;
+    alerts = alertData; runStatus = status;
     bc = backcountry;
     ppp = ranges;
     wk = weekend;
@@ -467,7 +525,7 @@ Promise.all([
     infoById = wkById;  // season status + snow-report links ride along with the weekend ranking
     seasonAsOf = weekend?.season_info?.as_of ?? null;
     const byId = Object.fromEntries((ranges?.mountains || []).map(r => [r.id, r]));
-    rows = d.mountains.filter(m => !m.error).map(m => ({ ...m, window_start: d.window_start, range: byId[m.id] || null }));
+    rows = d.mountains.filter(m => !m.error).map(m => ({ ...m, window_start: d.window_start, generated_at: d.generated_at, range: byId[m.id] || null }));
     // Shared scale for every range bar so mountains compare visually; at least 2" so a dusting doesn't fill the bar.
     barMax = Math.max(2, ...rows.map(m => m.range?.p90 ?? 0));
     const failed = d.mountains.length - rows.length;

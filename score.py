@@ -152,6 +152,7 @@ def main() -> None:
     drives = load("drive_times.json", required=False)
     ranges = load("storm_ranges.json", required=False)
     rng = {r["id"]: r for r in (ranges or {}).get("mountains", [])}
+    depth = load("snow_depth.json", required=False) or {}
 
     resorts = []
     for m in totals["mountains"]:
@@ -169,6 +170,7 @@ def main() -> None:
             "recent_7d_in": (recent or {}).get("mountains", {}).get(m["id"], {}).get("last_7d_in"),
             "storm_range": {k: rng[m["id"]].get(k) for k in ("p10", "p50", "p90")} if m["id"] in rng else None,
             "season": season,
+            "depth": {**depth["mountains"][m["id"]], "date": depth.get("date")} if m["id"] in depth.get("mountains", {}) else None,
             "site": infos.get(m["id"], {}).get("site"), "report": infos.get(m["id"], {}).get("report"),
             "days": days,
         })

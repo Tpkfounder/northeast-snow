@@ -46,7 +46,7 @@ jobs:
         run: |
           mkdir -p _site/data
           cp index.html app.js _site/
-          cp data/*.json _site/data/
+          cp data/*.json data/*.xml _site/data/
           ls -la _site _site/data
 
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

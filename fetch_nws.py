@@ -183,6 +183,22 @@ def summarize(props: dict, now: datetime) -> dict:
             "qpf_in": round(accumulate(qpf, ds, de) / MM_PER_IN, 2),
         })
 
+    # 6-hour storm timeline aligned to local 12a/6a/12p/6p, so the chart reads as "overnight", "morning"...
+    # (NWS snowfall usually comes in 6 h blocks; finer buckets would just split those evenly.)
+    t0 = now.astimezone(TZ).replace(hour=now.astimezone(TZ).hour // 6 * 6, minute=0, second=0, microsecond=0)
+    timeline = []
+    for i in range(HORIZON_H // 6 + 1):
+        bs, be = t0 + timedelta(hours=6 * i), t0 + timedelta(hours=6 * (i + 1))
+        if bs >= we:
+            break
+        bt = in_window(props.get("temperature", {}), bs, be)
+        timeline.append({
+            "start": bs.isoformat(),
+            "snow_in": round(accumulate(snow, max(bs, now), be) / MM_PER_IN, 1),
+            "rain_in": round(rain_liquid(props, max(bs, now), be) / MM_PER_IN, 2),
+            "temp_f": round(c_to_f(sum(bt) / len(bt))) if bt else None,
+        })
+
     temps = in_window(props.get("temperature", {}), now, we)
     winds = in_window(props.get("windSpeed", {}), now, we)
     gusts = in_window(props.get("windGust", {}), now, we)
@@ -202,6 +218,7 @@ def summarize(props: dict, now: datetime) -> dict:
         "wind_dir_mode_deg": max(set(round(d / 45) * 45 % 360 for d in dirs),
                                  key=[round(d / 45) * 45 % 360 for d in dirs].count) if dirs else None,
         "by_day": days,
+        "timeline": timeline,
         "weekend": weekend_days(props, now),
         "grid_update_time": props.get("updateTime"),
         "grid_elevation_ft": round(props["elevation"]["value"] * 3.28084)

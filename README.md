@@ -12,12 +12,20 @@ A Northeast US snow map with three views, rebuilt from public weather data every
 | Point forecast (snow, temp, wind) | NWS gridpoint API (api.weather.gov) |
 | Snowfall percentiles | WPC Probabilistic Precipitation Portal (NBM-based GRIB2) |
 | Observed snowfall, season to date | NOHRSC National Snowfall Analysis v2 |
+| Snow depth on the ground (modeled) | NOAA NOHRSC SNODAS via NSIDC (G02158), daily ~1 km grid |
 | Drive times (cached) | Valhalla on OpenStreetMap data (valhalla1.openstreetmap.de) |
 | Avalanche danger | avalanche.org public API |
 | Season opening dates (snapshot) | snowpack.report, which links each resort's own announcement |
 | Resort websites / snow report links | Resort sites; Indy links from indyskipass.com resort pages |
 | Backcountry line geometry | OpenStreetMap (ODbL) |
 | Slope / aspect / elevation | USGS 3DEP lidar |
+
+## Also
+- **Storm timeline:** each mountain's popup charts snow and rain in 6-hour blocks for the next 72 h.
+- **Snow on the ground:** SNODAS modeled depth (natural snow, not resort base depth) at each summit and base; backcountry coverage scores use it.
+- **Powder alerts:** `data/alerts.xml` is an RSS feed of anything forecast 6"+ in 72 h (threshold in `make_alerts.py`). Subscribe in any feed reader, or pipe it to email with a service like Blogtrottr or IFTTT.
+- **Stale-data warning:** `update.sh` records each step in `data/status.json`; the page warns when data is over 8 hours old or a source failed.
+- **Opening dates:** a weekly scheduled Claude task (Mondays 8 am, runs while the Claude app is open) refreshes `config/resort_info.json` and commits it locally; push with GitHub Desktop.
 
 ## Run locally
 ```bash

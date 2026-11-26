@@ -6,6 +6,7 @@
 <!-- Only this site, the pinned Leaflet build on cdnjs and OSM tiles may load. No inline scripts, no plugins, no forms. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="alternate" type="application/rss+xml" title="Northeast Snow powder alerts" href="data/alerts.xml">
 <title>Northeast Storm Totals</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
       integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -73,6 +74,10 @@
   .filters select { font: inherit; font-size: 13px; padding: 3px 6px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--ink); }
   .summary { margin: 0 16px 8px; padding: 10px 12px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line); font-size: 13px; }
   .summary b { font-size: 14px; }
+  .summary a, .stale a { color: var(--ikon); }
+  .stale { margin: 12px 16px 0; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--epic); border-left-width: 6px; background: var(--bg); font-size: 13px; }
+  .pp .tl { margin: 8px 0 2px; font-size: 12px; }
+  .pp .tl svg { display: block; margin-top: 4px; color: var(--muted); }
   .summary .sub { display: block; margin-top: 2px; }
   .season { font-size: 11px; font-weight: 600; }
   .season.opened { color: var(--rain); } .season.scheduled { color: var(--epic); } .season.no_date { color: var(--muted); }
@@ -141,6 +146,7 @@
 </header>
 <main>
   <aside>
+    <div class="stale" id="stale" role="status" hidden></div>
     <div class="filters" id="pass-filters" role="group" aria-label="Pass filter">
       <button data-f="all" aria-pressed="true">All</button>
       <button data-f="Ikon" aria-pressed="false">Ikon</button>

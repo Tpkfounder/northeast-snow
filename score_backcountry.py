@@ -11,7 +11,7 @@ Danger Considerable (3) or higher is a hard gate: the line is never presented as
 
 Conditions score (0–100) per line and day:
   fresh snow 35   forecast to 9 am + observed (NOHRSC), aged
-  coverage   20   season-to-date snowfall: a rough proxy for how filled-in the terrain is
+  coverage   20   SNODAS modeled snow depth (full marks at 36"), or season-to-date snowfall if SNODAS is missing
   wind       20   ridge-top wind vs the line's aspect: loaded / cross-loaded / scoured / light
   surface    25   rain, thaw-then-refreeze crust, warmth
 Hazard flags (wind slab, icy surface, wet snow, steep pitch) are listed separately and never add points.
@@ -170,7 +170,10 @@ def day_conditions(props: dict, wind_props: dict, obs: dict, open_at: datetime, 
 def score_line(p: dict, c: dict, avy: dict) -> dict:
     flags = []
     fresh = 35 * clamp01(c["fresh_in"] / 12)
-    coverage = 20 * clamp01((c["season_in"] or 0) / 80)
+    if c.get("depth_in") is not None:
+        coverage = 20 * clamp01(c["depth_in"] / 36)
+    else:
+        coverage = 20 * clamp01((c["season_in"] or 0) / 80)
 
     w = c["wind"]
     if c["fresh_in"] < 1 or not w["hours"]:
@@ -225,6 +228,10 @@ def main() -> None:
     def grid(lat, lon):
         return get_json(resolve_grid({"lat": lat, "lon": lon}, cache))["properties"]
 
+    depth_path = ROOT / "data" / "snow_depth.json"
+    depth = json.loads(depth_path.read_text()) if depth_path.exists() else {}
+    depth_areas = depth.get("areas", {})
+
     zones, feats = [], []
     for cfg_path in sorted(BC_DIR.glob("*_lines.json")):
         gj_path = cfg_path.with_name(cfg_path.name.replace("_lines.json", ".geojson"))
@@ -242,7 +249,8 @@ def main() -> None:
         for d in dates:
             open_at = datetime(d.year, d.month, d.day, OPEN_H, tzinfo=TZ)
             for a in zone["area_points"]:
-                conds[(a, d)] = day_conditions(area_props[a], wind_by_area[a], obs.get(a, {}), open_at, now)
+                conds[(a, d)] = {**day_conditions(area_props[a], wind_by_area[a], obs.get(a, {}), open_at, now),
+                                 "depth_in": depth_areas.get(f"{zone['key']}/{a}"), "depth_date": depth.get("date")}
 
         n0 = len(feats)
         for f in gj["features"]:

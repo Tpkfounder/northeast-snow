@@ -342,12 +342,23 @@ function visibleRows() {
 
 function stormSummary() {
   const el = document.getElementById("summary");
-  const feed = `<a href="data/alerts.xml" type="application/rss+xml">Subscribe to powder alerts (RSS)</a>`;
+  const feedUrl = location.protocol === "https:" ? new URL("data/alerts.xml", location.href).href
+    : "https://tpkfounder.github.io/northeast-snow/data/alerts.xml";
+  const enc = encodeURIComponent(feedUrl);
+  // The feed itself is RSS, which browsers show as raw code; offer ways to actually use it instead.
+  const feed = `<details class="getalerts"><summary>Get powder alerts</summary>
+    <div class="opts">
+      ${extLink(`https://blogtrottr.com/?subscribe=${enc}`, "✉️ Email me when there's an alert")}
+      <span class="sub">Uses Blogtrottr, a free outside service (its emails include ads): enter your email on their page; unsubscribe from any alert email.</span>
+      ${extLink(`https://feedly.com/i/subscription/feed%2F${enc}`, "📰 Add to Feedly")}
+      <span class="sub">Or any feed-reader app: copy the feed link.</span>
+      <button type="button" class="copyfeed" data-url="${esc(feedUrl)}">🔗 Copy feed link</button>
+    </div></details>`;
   const list = (alerts?.alerts || []).filter(a => a.pass === "Backcountry" ? showBC : filter === "all" || a.pass === filter);
   el.innerHTML = list.length
     ? `<b>Powder alert:</b> ${list.slice(0, 4).map(a => `${esc(a.name)} ${fmtIn(a.likely_in)}`).join(", ")}${list.length > 4 ? ` +${list.length - 4} more` : ""}
-       <span class="sub">${Math.round(alerts.threshold_in)}″+ likely in the next 72 h. ${feed}</span>`
-    : `<b>No powder alerts</b> <span class="sub">Nothing here is forecast ${Math.round(alerts?.threshold_in ?? 6)}″+ in the next 72 h. ${feed}</span>`;
+       <span class="sub">${Math.round(alerts.threshold_in)}″+ likely in the next 72 h.</span>${feed}`
+    : `<b>No powder alerts</b> <span class="sub">Nothing here is forecast ${Math.round(alerts?.threshold_in ?? 6)}″+ in the next 72 h.</span>${feed}`;
 }
 
 // Warn when the data is old (the scheduled update may be failing) or a source failed on the last run.
@@ -452,6 +463,11 @@ document.getElementById("pass-filters").addEventListener("click", e => {
   }
   render();
   homeView();
+});
+document.getElementById("summary").addEventListener("click", async e => {
+  const b = e.target.closest(".copyfeed"); if (!b) return;
+  try { await navigator.clipboard.writeText(b.dataset.url); b.textContent = "✓ Copied: paste it into your feed app"; }
+  catch { prompt("Copy this feed link:", b.dataset.url); }
 });
 const maxSel = document.getElementById("maxdrive");
 maxSel.value = String(maxDrive);

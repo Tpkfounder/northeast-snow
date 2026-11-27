@@ -15,8 +15,9 @@
 
 <p align="center">
   <a href="https://github.com/Tpkfounder/northeast-snow/actions/workflows/update.yml"><img alt="Data update" src="https://github.com/Tpkfounder/northeast-snow/actions/workflows/update.yml/badge.svg"></a>
-  <img alt="Coverage: NY and New England" src="https://img.shields.io/badge/coverage-NY%20%2B%20New%20England-1f4fd1">
-  <img alt="54 resorts, 30 backcountry lines" src="https://img.shields.io/badge/resorts-54%20%C2%B7%20lines%2030-6b21a8">
+  <img alt="Coverage: NY and New England" src="https://img.shields.io/badge/coverage-NY_and_New_England-1f4fd1">
+  <img alt="54 resorts" src="https://img.shields.io/badge/resorts-54-be185d">
+  <img alt="30 backcountry lines" src="https://img.shields.io/badge/backcountry_lines-30-6b21a8">
   <img alt="License: all rights reserved" src="https://img.shields.io/badge/license-all%20rights%20reserved-555">
 </p>
 

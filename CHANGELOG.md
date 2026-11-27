@@ -2,6 +2,12 @@
 
 What's new on [Northeast Snow](https://tpkfounder.github.io/northeast-snow/), newest first.
 
+## 2026-11-27
+
+### Changed
+- Data now updates **every hour** from 5 am to 10 pm Eastern, plus 1 am (was every 3 hours).
+- Powder alerts: the subscribe link now offers email alerts, Feedly, or copying the feed link, instead of opening the raw feed.
+
 ## 2026-11-26
 
 **Launch, plus a first round of additions.**

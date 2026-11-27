@@ -2,9 +2,9 @@ name: Update data and publish site
 
 on:
   schedule:
-    # Every 3 hours, 5 am to 10 pm US Eastern. Cron is UTC; times below are EST (an hour later during EDT).
-    #   10=5a 13=8a 16=11a 19=2p 22=5p 01=8p 03=10p
-    - cron: "7 10,13,16,19,22,1,3 * * *"   # :07 to avoid the top-of-hour rush on GitHub runners
+    # Hourly 5 am to 10 pm US Eastern, plus 1 am. Cron is UTC; hours below are EST (an hour later during EDT).
+    #   10-23 = 5a-6p, 0-3 = 7p-10p, 6 = 1a. NWS forecasts update about hourly, so faster gains nothing.
+    - cron: "7 0-3,6,10-23 * * *"   # :07 to avoid the top-of-hour rush on GitHub runners
   workflow_dispatch: {}
   push:
     branches: [main]

@@ -2,7 +2,7 @@
 
 <p align="center">
   <b>Where's the snow, where should I ski this weekend, and is that backcountry line in?</b><br>
-  A free snow map for New York and New England, rebuilt from public weather data every 3 hours.
+  A free snow map for New York and New England, rebuilt from public weather data every hour.
 </p>
 
 <p align="center">
@@ -58,7 +58,7 @@ A snow score isn't a stability assessment. Avalanche terrain needs training, par
 
 ```mermaid
 flowchart LR
-  subgraph Sources["Public data (every 3 h)"]
+  subgraph Sources["Public data (hourly)"]
     NWS[NWS point forecasts]
     WPC[WPC snowfall percentiles]
     NOH[NOHRSC observed snowfall]
@@ -74,7 +74,7 @@ flowchart LR
   J --> P[GitHub Pages<br>index.html + app.js]
 ```
 
-A scheduled GitHub Action runs `update.sh` from 5 am to 10 pm Eastern. The Python scripts fetch and score everything into small JSON files, and a static page (Leaflet map, no build step, no server) reads them. If a source fails, the page says which one; if the data goes more than 8 hours stale, it warns.
+A scheduled GitHub Action runs `update.sh` every hour from 5 am to 10 pm Eastern, plus 1 am. The Python scripts fetch and score everything into small JSON files, and a static page (Leaflet map, no build step, no server) reads them. If a source fails, the page says which one; if the data goes more than 6 hours stale, it warns.
 
 ## Data sources
 

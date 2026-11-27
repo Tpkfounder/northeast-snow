@@ -4,7 +4,7 @@
 
 An alert fires when the likely 72 h snowfall (WPC 50th percentile, or the NWS total when there's no range)
 reaches ALERT_IN. Each alert's id is stable for the mountain and the day, so a feed reader shows it once
-per storm day instead of every 3-hour refresh. Backcountry alerts always carry the avalanche caveat:
+per storm day instead of every hourly refresh. Backcountry alerts always carry the avalanche caveat:
 a snow forecast is never a recommendation to ski avalanche terrain.
 """
 from __future__ import annotations
@@ -91,7 +91,7 @@ def main() -> None:
     <description>Northeast ski areas and backcountry zones forecast to get {fmt(ALERT_IN)} or more in the next 72 hours. Forecasts, not guarantees; backcountry alerts are never a recommendation to ski avalanche terrain.</description>
     <language>en-us</language>
     <lastBuildDate>{pub}</lastBuildDate>
-    <ttl>180</ttl>{items}
+    <ttl>60</ttl>{items}
   </channel>
 </rss>
 """)

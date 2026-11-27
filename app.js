@@ -367,7 +367,7 @@ function renderStale() {
   const msgs = [];
   const gen = rows.length ? Date.parse(rows[0].generated_at || 0) : 0;
   const ageH = gen ? (Date.now() - gen) / 3.6e6 : null;
-  if (ageH != null && ageH > 8) msgs.push(`<b>Forecast data is ${Math.round(ageH)} hours old.</b> The automatic update may be failing; numbers below may be out of date.`);
+  if (ageH != null && ageH > 6) msgs.push(`<b>Forecast data is ${Math.round(ageH)} hours old.</b> The automatic update may be failing; numbers below may be out of date.`);
   for (const s of runStatus?.steps || []) if (!s.ok) msgs.push(`Last update couldn't get <b>${esc(s.name)}</b>: ${esc(s.lost)}.`);
   el.innerHTML = msgs.join("<br>");
   el.hidden = !msgs.length;
